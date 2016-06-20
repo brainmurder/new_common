@@ -156,6 +156,33 @@ ISnew.Cart.prototype._clear_items = function (task, current_items) {
 };
 
 /**
+ *
+ */
+ISnew.Cart.prototype.makeCheckout = function (task) {
+  var self = this;
+
+  task = task || {};
+  task.method = 'make_checkout';
+
+  self.tasks.send(task);
+};
+
+ISnew.Cart.prototype._make_checkout = function (task, current_items) {
+  var self = this;
+
+  console.log('Cart: _make_checkout: ', task);
+
+  ISnew.json.makeQuickCheckout(task)
+    .done(function (response) {
+      console.log('Cart: _make_checkout: done', response);
+    })
+    .fail(function (response) {
+      console.log('Cart: _make_checkout: fail', response);
+    });
+  return;
+};
+
+/**
  * Устанавливаем купон
  */
 ISnew.Cart.prototype.setCoupon = function (task) {
