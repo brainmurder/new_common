@@ -283,6 +283,34 @@ ISnew.CartDOM.prototype.setCoupon = function ($form) {
 };
 
 /**
+ *
+ */
+ISnew.CartDOM.prototype._initQuickCheckout = function () {
+  var self = this;
+
+  $(function () {
+    var $modal_quick = $('#insales-quick-checkout-dialog');
+    var $inputs = $modal_quick.find('.input');
+    var fields = [];
+
+    console.log($modal_quick);
+
+    $inputs.each(function () {
+      var $input = $(this);
+      var $field = $input.find('.input-field');
+
+      fields.push({
+        required: $field.hasClass('input--required'),
+        name: $field.attr('name'),
+        id: $field.attr('id'),
+        title: $field.attr('')
+      })
+    });
+  })
+  return;
+};
+
+/**
  * Обработчики работы с купоном
  */
 ISnew.CartDOM.prototype._bindCoupon = function () {
