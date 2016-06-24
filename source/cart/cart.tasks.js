@@ -140,6 +140,14 @@ ISnew.CartTasks.prototype._done = function (order) {
     EventBus.publish(task.method +':insales:cart', data);
   });
 
+  //  снимаем флаг с кнопки
+  if (data.action.button) {
+    var checkout_button = data.action.button[0].checkoutButton;
+    if (checkout_button) {
+      checkout_button = false;
+    }
+  }
+
   EventBus.publish('update_items:insales:cart', data);
   return;
 };
