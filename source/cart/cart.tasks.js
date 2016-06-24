@@ -142,9 +142,9 @@ ISnew.CartTasks.prototype._done = function (order) {
 
   //  снимаем флаг с кнопки
   if (data.action.button) {
-    var checkout_button = data.action.button[0].checkoutButton;
-    if (checkout_button) {
-      checkout_button = false;
+    var checkout_button = data.action.button[0];
+    if (checkout_button.checkoutButton) {
+      checkout_button.checkoutButton = false;
     }
   }
 
