@@ -141,11 +141,10 @@ ISnew.CartTasks.prototype._done = function (order) {
   });
 
   //  снимаем флаг с кнопки
-  if (data.action.button) {
-    var checkout_button = data.action.button[0];
-    if (checkout_button.checkoutButton) {
-      checkout_button.checkoutButton = false;
-    }
+  var _button = data.action.button;
+
+  if (_button && _button.checkoutButton) {
+    _button.checkoutButton = false;
   }
 
   EventBus.publish('update_items:insales:cart', data);

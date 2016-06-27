@@ -182,6 +182,7 @@ ISnew.CartDOM.prototype._bindUpdateCart = function () {
       // блочим отправку формы и запускаем обработку
       event.preventDefault();
 
+      // TODO: удалить
       self.updateOrder($(event.target));
     }
   });

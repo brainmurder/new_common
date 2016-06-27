@@ -207,9 +207,9 @@ ISnew.Cart.prototype._update = function (items, task) {
  */
 ISnew.Cart.prototype.addItem = function (form) {
   var self = this;
-  var _button = form.find('['+ self.ui.options.add +']');
+  var _button = $(form).find('['+ self.ui.options.add +']');
   //  Ставим флаг на кнопку
-  _button[0].checkoutButton = true;
+  _button.checkoutButton = true;
   self.ui._addItem(_button);
   // вызываем модалку чекаута
   $('#insales-quick-checkout-dialog').modal({
