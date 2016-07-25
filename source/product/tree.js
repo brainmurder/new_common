@@ -358,7 +358,13 @@ ProductVariants.prototype._selectedOptions = function (options) {
   var leaf = self.tree;
 
   _.forEach(options, function(option, index) {
-    var first = self.getFirst(leaf);
+		var _key = _.findKey(leaf, function(o) { return o.available === true; });
+
+		if (_key) {
+			var first = leaf[_key];
+		}else{
+			var first = self.getFirst(leaf);
+		}
 
     options[index].selected = first.position;
     leaf = first.tree;
@@ -393,12 +399,17 @@ ProductVariants.prototype.setOption = function (option) {
     var isLeaf = _.get(self, self._getSelectedVector(index + 1));
 
     // Если мы не можем найти такую ветку - вытаскиваем строение уровня
-    // и помечаем первое свойство как выбранное
-    if (isLeaf === undefined) {
+    // и помечаем первое доступное свойство как выбранное
+    if (isLeaf === undefined || !isLeaf.available) {
       var leaf = self.getLevel(index);
-      var first = self.getFirst(leaf);
-
-      _option.selected = first.position;
+			var _key = _.findKey(leaf, function(o) { return o.available === true; });
+			
+			if (_key) {
+				var first = leaf[_key];
+			}else{
+				var first = self.getFirst(leaf);
+			}
+			_option.selected = first.position
     }
   });
 
@@ -432,7 +443,7 @@ ProductVariants.prototype.getFilterOption = function (level) {
   var values = self.getLevel(level);
 
   _.forEach(option.values, function (value, index) {
-    if (!values[value.position]) {
+    if (!values[value.position] || !values[value.position].available) {
       //  если стоит фильтрация то ставим disabled, иначе удаляем ключ
       if (self._owner.settings.filtered) {
         value.disabled = true;
